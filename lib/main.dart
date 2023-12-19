@@ -13,6 +13,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => UiService(), lazy: false),
+      ChangeNotifierProvider(create: (_) => ScanListService(), lazy: false),
     ], child: const MyApp());
   }
 }

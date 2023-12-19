@@ -116,4 +116,15 @@ class DBService {
 
     return res;
   }
+
+  Future<int> deleteAll() async {
+    // Verify the database
+    final db = await database;
+
+    final res = await db.rawDelete('''
+      DELETE FROM Scans
+    ''');
+
+    return res;
+  }
 }
