@@ -9,25 +9,24 @@ ScanModel scanModelFromJson(String str) => ScanModel.fromJson(json.decode(str));
 String scanModelToJson(ScanModel data) => json.encode(data.toJson());
 
 class ScanModel {
-    int id;
-    String type;
-    String value;
+  int? id;
+  String value;
 
-    ScanModel({
-        required this.id,
-        required this.type,
-        required this.value,
-    });
+  ScanModel({
+    this.id,
+    required this.value,
+  });
 
-    factory ScanModel.fromJson(Map<String, dynamic> json) => ScanModel(
+  String get type => value.contains('http') ? 'http' : 'geo';
+
+  factory ScanModel.fromJson(Map<String, dynamic> json) => ScanModel(
         id: json["id"],
-        type: json["type"],
         value: json["value"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "type": type,
         "value": value,
-    };
+      };
 }
