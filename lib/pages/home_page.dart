@@ -14,7 +14,15 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: Text('History'),
         actions: [
-          IconButton(icon: Icon(Icons.delete_forever), onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.delete_forever),
+              onPressed: () {
+                // Listen = false because we're inside a method
+                // and otherwise we'd get an error
+                final scanListProvider =
+                    Provider.of<ScanListService>(context, listen: false);
+                scanListProvider.deleteAll();
+              }),
         ],
       ),
       body: _HomePageBody(),
@@ -35,14 +43,15 @@ class _HomePageBody extends StatelessWidget {
 
     final currentIndex = uiProvider.selectedMenuOpt;
 
-    // Temp: Read the database
-    final tempScan = ScanModel(value: 'http://google.com');
-    DBService.db.getAllScans().then((value) => print(value));
+    final scanListProvider =
+        Provider.of<ScanListService>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
+        scanListProvider.loadScansByType('geo');
         return MapsHistoryScreen();
       case 1:
+        scanListProvider.loadScansByType('http');
         return AddressesScreen();
       default:
         return MapsHistoryScreen();
