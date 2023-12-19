@@ -6,10 +6,10 @@ class ScanButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      child: Icon(Icons.filter_center_focus),
       onPressed: () {},
       elevation: 0,
       backgroundColor: Theme.of(context).primaryColor,
+      child: const Icon(Icons.filter_center_focus),
     );
   }
 }

@@ -5,10 +5,8 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Hola Mundo'),
-     ),
+    return  Center(
+        child: Text('Map Page'),
    );
   }
 }
