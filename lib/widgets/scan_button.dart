@@ -19,7 +19,7 @@ class ScanButton extends StatelessWidget {
         //   ScanMode.BARCODE,
         // );
 
-        final barcodeScanRes = 'geo:15.33,15.66';
+        final barcodeScanRes = 'geo:-33.49,-70.66';
         // final barcodeScanRes = 'https://www.facebook.com';
 
         if (barcodeScanRes == '-1') {

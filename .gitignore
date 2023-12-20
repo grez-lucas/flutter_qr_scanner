@@ -1,5 +1,5 @@
 *.vscode
-
+*environment.dart
 # Miscellaneous
 *.class
 *.log
