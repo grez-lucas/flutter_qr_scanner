@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_scanner/utils/utils.dart';
 
 import '../services/app_services.dart';
 
@@ -19,6 +20,7 @@ class ScanButton extends StatelessWidget {
         // );
 
         final barcodeScanRes = 'geo:15.33,15.66';
+        // final barcodeScanRes = 'https://www.facebook.com';
 
         if (barcodeScanRes == '-1') {
           return;
@@ -26,9 +28,11 @@ class ScanButton extends StatelessWidget {
 
         final scanListProvider =
             Provider.of<ScanListService>(context, listen: false);
-        scanListProvider.newScan(barcodeScanRes);
+        final scanModelRes = await scanListProvider.newScan(barcodeScanRes);
 
         print('The barcode is: $barcodeScanRes');
+
+        launchURL(context, scanModelRes);
       },
       elevation: 0,
       backgroundColor: Theme.of(context).primaryColor,

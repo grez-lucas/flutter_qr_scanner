@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../models/app_models.dart';
 import '../services/app_services.dart';
 
+import '../utils/utils.dart';
+
 class ScanListView extends StatelessWidget {
   const ScanListView({
     super.key,
@@ -45,7 +47,8 @@ class ScanListView extends StatelessWidget {
                 subtitle: Text('ID: ${scans[index].id}'),
                 trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
                 onTap: () {
-                  print(scans[index].id);
+                  // print(scans[index].id);
+                  launchURL(context, scans[index]);
                 },
                 splashColor: Theme.of(context).primaryColorLight,
               ),
