@@ -33,18 +33,36 @@ class _MapScreenState extends State<MapScreen> {
       tilt: 50,
     );
 
+    // Markers
+    Set<Marker> markers = Set<Marker>();
+    markers.add(
+      Marker(
+        markerId: MarkerId('geo-location'),
+        position: LatLng(scanCoordinates[0], scanCoordinates[1]),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Map'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              final CameraUpdate newCameraPosition = CameraUpdate.newLatLng(
+                LatLng(scanCoordinates[0], scanCoordinates[1]),
+              );
+
+              _controller.future.then((controller) {
+                controller.animateCamera(newCameraPosition);
+              });
+            },
             icon: Icon(Icons.my_location),
           ),
         ],
       ),
       body: GoogleMap(
         mapType: MapType.normal,
+        markers: markers,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
