@@ -5,6 +5,8 @@ import 'package:qr_scanner/widgets/app_widgets.dart';
 import '../services/app_services.dart';
 
 class AddressesScreen extends StatelessWidget {
+  const AddressesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // We have to listen, because we're inside a build and we want the

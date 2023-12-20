@@ -24,7 +24,7 @@ class DBService {
 
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'ScansDB.db');
-    print(path);
+    // print(path);
 
     // Create database
     return await openDatabase(

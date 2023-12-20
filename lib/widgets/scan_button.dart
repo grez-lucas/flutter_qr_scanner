@@ -30,7 +30,7 @@ class ScanButton extends StatelessWidget {
             Provider.of<ScanListService>(context, listen: false);
         final scanModelRes = await scanListProvider.newScan(barcodeScanRes);
 
-        print('The barcode is: $barcodeScanRes');
+        // print('The barcode is: $barcodeScanRes');
 
         launchURL(context, scanModelRes);
       },

@@ -27,24 +27,24 @@ class _MapScreenState extends State<MapScreen> {
         .map((e) => double.parse(e))
         .toList();
 
-    final CameraPosition _kGooglePlex = CameraPosition(
+    final CameraPosition kGooglePlex = CameraPosition(
       target: LatLng(scanCoordinates[0], scanCoordinates[1]),
       zoom: 14.4746,
       tilt: 50,
     );
 
     // Markers
-    Set<Marker> markers = Set<Marker>();
+    Set<Marker> markers = <Marker>{};
     markers.add(
       Marker(
-        markerId: MarkerId('geo-location'),
+        markerId: const MarkerId('geo-location'),
         position: LatLng(scanCoordinates[0], scanCoordinates[1]),
       ),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map'),
+        title: const Text('Map'),
         actions: [
           IconButton(
             onPressed: () {
@@ -56,14 +56,14 @@ class _MapScreenState extends State<MapScreen> {
                 controller.animateCamera(newCameraPosition);
               });
             },
-            icon: Icon(Icons.my_location),
+            icon: const Icon(Icons.my_location),
           ),
         ],
       ),
       body: GoogleMap(
         mapType: MapType.normal,
         markers: markers,
-        initialCameraPosition: _kGooglePlex,
+        initialCameraPosition: kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },

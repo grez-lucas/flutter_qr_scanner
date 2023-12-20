@@ -45,7 +45,7 @@ class ScanListView extends StatelessWidget {
                     color: Theme.of(context).primaryColor),
                 title: Text(scans[index].value),
                 subtitle: Text('ID: ${scans[index].id}'),
-                trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+                trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
                 onTap: () {
                   // print(scans[index].id);
                   launchURL(context, scans[index]);

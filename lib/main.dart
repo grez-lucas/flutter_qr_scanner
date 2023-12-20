@@ -29,15 +29,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'home',
       routes: {
-        'home': (_) => HomeScreen(),
-        'map': (_) => MapScreen( ),
+        'home': (_) => const HomeScreen(),
+        'map': (_) => const MapScreen( ),
       },
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.green,
         ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: Colors.lightGreen,
         ),
       ),
