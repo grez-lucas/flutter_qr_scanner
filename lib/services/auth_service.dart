@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 class AuthService extends ChangeNotifier {
   final String _baseUrl = '';
   final String _firebaseToken = '';
+
+  final storage = const FlutterSecureStorage();
 
   Future<String?> createUser(String email, String password) async {
     final Map<String, dynamic> authData = {
@@ -28,13 +31,17 @@ class AuthService extends ChangeNotifier {
 
     if (decodedResp.containsKey('idToken')) {
       // Save token in the device SECURE STORAGE
+      await storage.write(
+          key: 'token',
+          value: decodedResp[
+              'idToken']); // Save token in the device SECURE STORAGE
       return null;
     } else {
       // Return the error message so that we can later display it in screen
       return decodedResp['error']['message'];
     }
   }
-  
+
   Future<String?> login(String email, String password) async {
     final Map<String, dynamic> authData = {
       'email': email,
@@ -56,6 +63,10 @@ class AuthService extends ChangeNotifier {
 
     if (decodedResp.containsKey('idToken')) {
       // Save token in the device SECURE STORAGE
+      await storage.write(
+          key: 'token',
+          value: decodedResp[
+              'idToken']); // Save token in the device SECURE STORAGE
       return null;
     } else {
       // Return the error message so that we can later display it in screen
@@ -63,5 +74,12 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  Future logout() async {
+    // Async because theres a lapse of time for storage access with secure storage
 
+    // Delete token from the device SECURE STORAGE
+    await storage.delete(key: 'token');
+
+    return;
+  }
 }
