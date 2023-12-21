@@ -5,8 +5,8 @@ import 'package:qr_scanner/services/app_services.dart';
 import 'package:qr_scanner/ui/input_decrations.dart';
 import 'package:qr_scanner/widgets/app_widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +20,22 @@ class LoginScreen extends StatelessWidget {
             CardContainer(
               child: Column(
                 children: [
-                  Text("Login",
+                  Text("Register",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineMedium),
                   SizedBox(height: 30),
                   ChangeNotifierProvider(
-                      create: (_) => LoginFormService(), child: _LoginForm()),
+                      create: (_) => LoginFormService(),
+                      child: _RegisterForm()),
                 ],
               ),
             ),
             SizedBox(height: 50),
-            Text('¿No tienes una cuenta?'),
+            Text('¿Ya tienes una cuenta?'),
             MaterialButton(
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, 'register'),
+              onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
               color: Theme.of(context).primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Text("Crear una nueva cuenta",
+              child: Text("Ingresar con cuenta existente",
                   style: Theme.of(context).textTheme.bodyMedium),
             )
           ]),
@@ -47,15 +45,15 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
-  const _LoginForm({super.key});
+class _RegisterForm extends StatelessWidget {
+  const _RegisterForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final loginFormProvider = Provider.of<LoginFormService>(context);
+    final RegisterFormProvider = Provider.of<LoginFormService>(context);
 
     return Form(
-      key: loginFormProvider.formKey,
+      key: RegisterFormProvider.formKey,
       child: Column(children: [
         TextFormField(
           autocorrect: false,
@@ -71,7 +69,7 @@ class _LoginForm extends StatelessWidget {
                 ? null
                 : 'No es un correo válido';
           },
-          onChanged: (value) => loginFormProvider.email = value,
+          onChanged: (value) => RegisterFormProvider.email = value,
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
         const SizedBox(height: 30),
@@ -85,7 +83,7 @@ class _LoginForm extends StatelessWidget {
                 ? null
                 : 'La contraseña debe ser de 6 caracteres';
           },
-          onChanged: (value) => loginFormProvider.password = value,
+          onChanged: (value) => RegisterFormProvider.password = value,
         ),
         const SizedBox(height: 30),
         MaterialButton(
@@ -94,25 +92,25 @@ class _LoginForm extends StatelessWidget {
           disabledColor: Colors.grey,
           elevation: 0,
           color: Theme.of(context).primaryColor,
-          onPressed: loginFormProvider.isLoading
+          onPressed: RegisterFormProvider.isLoading
               ? null
               : () async {
                   FocusScope.of(context).unfocus(); // Hide keyboard
 
-                  if (!loginFormProvider.isValidForm()) return;
+                  if (!RegisterFormProvider.isValidForm()) return;
 
-                  loginFormProvider.isLoading = true;
+                  RegisterFormProvider.isLoading = true;
 
                   await Future.delayed(// Simulate a delay
                       const Duration(seconds: 4));
 
-                  loginFormProvider.isLoading = false;
+                  RegisterFormProvider.isLoading = false;
 
                   Navigator.pushReplacementNamed(context, 'home');
                 },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-            child: !loginFormProvider.isLoading
+            child: !RegisterFormProvider.isLoading
                 ? const Text("Ingresar", style: TextStyle(color: Colors.white))
                 : const SpinKitRotatingCircle(
                     color: Colors.white,

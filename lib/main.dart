@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         'home': (_) => const HomeScreen(),
         'map': (_) => const MapScreen( ),
         'login' : ( _ ) => const LoginScreen(),
+        'register' : ( _ ) =>const RegisterScreen(),
       },
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
