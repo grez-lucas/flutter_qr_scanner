@@ -98,17 +98,27 @@ class _LoginForm extends StatelessWidget {
               ? null
               : () async {
                   FocusScope.of(context).unfocus(); // Hide keyboard
+                  final authService =
+                      Provider.of<AuthService>(context, listen: false);
 
                   if (!loginFormProvider.isValidForm()) return;
 
                   loginFormProvider.isLoading = true;
 
-                  await Future.delayed(// Simulate a delay
-                      const Duration(seconds: 4));
+                  // Validate if the login is correct
+                  final String? errorMessage = await authService.login(
+                      loginFormProvider.email, loginFormProvider.password);
 
+                  if (errorMessage == null) {
+                    // Navigate to home screen
+                    Navigator.pushReplacementNamed(context, 'home');
+                  } else {
+                    // Show error message
+                    // NotificationsService.showSnackbar(errorMessage);
+                    print(errorMessage);
+                  // We dont want the button to be disabled if the login is correct
                   loginFormProvider.isLoading = false;
-
-                  Navigator.pushReplacementNamed(context, 'home');
+                  }
                 },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),

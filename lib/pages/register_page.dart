@@ -50,10 +50,10 @@ class _RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RegisterFormProvider = Provider.of<LoginFormService>(context);
+    final loginFormProvider = Provider.of<LoginFormService>(context);
 
     return Form(
-      key: RegisterFormProvider.formKey,
+      key: loginFormProvider.formKey,
       child: Column(children: [
         TextFormField(
           autocorrect: false,
@@ -69,7 +69,7 @@ class _RegisterForm extends StatelessWidget {
                 ? null
                 : 'No es un correo válido';
           },
-          onChanged: (value) => RegisterFormProvider.email = value,
+          onChanged: (value) => loginFormProvider.email = value,
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
         const SizedBox(height: 30),
@@ -83,7 +83,7 @@ class _RegisterForm extends StatelessWidget {
                 ? null
                 : 'La contraseña debe ser de 6 caracteres';
           },
-          onChanged: (value) => RegisterFormProvider.password = value,
+          onChanged: (value) => loginFormProvider.password = value,
         ),
         const SizedBox(height: 30),
         MaterialButton(
@@ -92,25 +92,35 @@ class _RegisterForm extends StatelessWidget {
           disabledColor: Colors.grey,
           elevation: 0,
           color: Theme.of(context).primaryColor,
-          onPressed: RegisterFormProvider.isLoading
+          onPressed: loginFormProvider.isLoading
               ? null
               : () async {
                   FocusScope.of(context).unfocus(); // Hide keyboard
+                  final authService =
+                      Provider.of<AuthService>(context, listen: false);
 
-                  if (!RegisterFormProvider.isValidForm()) return;
+                  if (!loginFormProvider.isValidForm()) return;
 
-                  RegisterFormProvider.isLoading = true;
+                  loginFormProvider.isLoading = true;
 
-                  await Future.delayed(// Simulate a delay
-                      const Duration(seconds: 4));
+                  // Validate if the login is correct
+                  final String? errorMessage = await authService.createUser(
+                      loginFormProvider.email, loginFormProvider.password);
 
-                  RegisterFormProvider.isLoading = false;
-
-                  Navigator.pushReplacementNamed(context, 'home');
+                  if (errorMessage == null) {
+                    // Navigate to home screen
+                    Navigator.pushReplacementNamed(context, 'home');
+                  } else {
+                    // Show error message
+                    // NotificationsService.showSnackbar(errorMessage);
+                    print(errorMessage);
+                  // We dont want the button to be disabled if the login is correct
+                  loginFormProvider.isLoading = false;
+                  }
                 },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-            child: !RegisterFormProvider.isLoading
+            child: !loginFormProvider.isLoading
                 ? const Text("Ingresar", style: TextStyle(color: Colors.white))
                 : const SpinKitRotatingCircle(
                     color: Colors.white,
