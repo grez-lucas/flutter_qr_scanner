@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_scanner/pages/login_page.dart';
 
 import 'pages/app_pages.dart';
 import 'services/app_services.dart';
@@ -27,10 +28,11 @@ class MyApp extends StatelessWidget {
       title: 'QR Reader',
       // theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: 'login',
       routes: {
         'home': (_) => const HomeScreen(),
         'map': (_) => const MapScreen( ),
+        'login' : ( _ ) => const LoginScreen(),
       },
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
