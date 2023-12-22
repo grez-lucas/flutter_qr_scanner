@@ -15,7 +15,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => UiService(), lazy: false),
       ChangeNotifierProvider(create: (_) => ScanListService(), lazy: false),
-      ChangeNotifierProvider( create: (_) => AuthService(), lazy: false),
+      ChangeNotifierProvider(create: (_) => AuthService(), lazy: false),
     ], child: const MyApp());
   }
 }
@@ -32,12 +32,13 @@ class MyApp extends StatelessWidget {
       initialRoute: 'checkAuth',
       routes: {
         'home': (_) => const HomeScreen(),
-        'map': (_) => const MapScreen( ),
-
-        'login' : ( _ ) => const LoginScreen(),
-        'register' : ( _ ) =>const RegisterScreen(),
-        'checkAuth' : ( _ ) => const CheckAuthScreen(),
+        'map': (_) => const MapScreen(),
+        'login': (_) => const LoginScreen(),
+        'register': (_) => const RegisterScreen(),
+        'checkAuth': (_) => const CheckAuthScreen(),
       },
+      // For notifications
+      scaffoldMessengerKey: NotificationsService.messengerKey,
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
         floatingActionButtonTheme: const FloatingActionButtonThemeData(

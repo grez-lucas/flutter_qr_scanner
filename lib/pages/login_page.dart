@@ -114,10 +114,10 @@ class _LoginForm extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, 'home');
                   } else {
                     // Show error message
-                    // NotificationsService.showSnackbar(errorMessage);
+                    NotificationsService.showSnackBar(errorMessage);
                     print(errorMessage);
-                  // We dont want the button to be disabled if the login is correct
-                  loginFormProvider.isLoading = false;
+                    // We dont want the button to be disabled if the login is correct
+                    loginFormProvider.isLoading = false;
                   }
                 },
           child: Container(
