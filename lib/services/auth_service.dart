@@ -82,4 +82,11 @@ class AuthService extends ChangeNotifier {
 
     return;
   }
+
+  Future<String> readToken() async {
+    // Check if the storage has a token
+
+    // Read token from the device SECURE STORAGE
+    return await storage.read(key: 'token') ?? '';
+  }
 }

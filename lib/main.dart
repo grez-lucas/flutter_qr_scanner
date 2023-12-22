@@ -29,12 +29,14 @@ class MyApp extends StatelessWidget {
       title: 'QR Reader',
       // theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
+      initialRoute: 'checkAuth',
       routes: {
         'home': (_) => const HomeScreen(),
         'map': (_) => const MapScreen( ),
+
         'login' : ( _ ) => const LoginScreen(),
         'register' : ( _ ) =>const RegisterScreen(),
+        'checkAuth' : ( _ ) => const CheckAuthScreen(),
       },
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
